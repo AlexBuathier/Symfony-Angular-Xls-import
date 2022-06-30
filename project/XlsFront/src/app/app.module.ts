@@ -9,6 +9,7 @@ import { MusicGroupComponent } from './components/music-group/music-group.compon
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { HomePageComponent } from './components/home-page/home-page.component';
 import { FileImportComponent } from './components/file-import/file-import.component';
+import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { FileImportComponent } from './components/file-import/file-import.compon
   imports: [
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+      HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
