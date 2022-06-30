@@ -1,0 +1,11 @@
+<div class="text-center">
+    <h1 class="text-muted">Welcome to the Musique group gestion</h1>
+    <div class="col-4 mx-auto">
+        <label class="form-label" for="xlsFile">You can import xls file to add music groups.</label>
+        <input type="file" class="form-control" id="xlsFile" accept=".xlsx .xls"
+               onchange="console.log(event.target.files)"/>
+        <button class="btn btn-danger mt-3" (click)="import()">Import</button>
+        <span class="divider line one-line fadeIn five">OR</span>
+        <button class="btn btn-primary">Add a group manually</button>
+    </div>
+</div>
