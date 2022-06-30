@@ -1,5 +1,9 @@
 SHELL := /bin/bash
 
+ubdd:
+	php bin/console make:migration
+	php bin/console doctrine:migrations:migrate
+
 tests:
 	symfony console doctrine:database:drop --force --env=test || true
 	symfony console doctrine:database:create --env=test

@@ -30,6 +30,9 @@ class MusicGroup
     #[ORM\Column(type: 'text')]
     private $presentation;
 
+    #[ORM\ManyToOne(targetEntity: MusicTrend::class, inversedBy: 'musicGroups')]
+    private $musicTrend;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -91,6 +94,18 @@ class MusicGroup
     public function setPresentation(string $presentation): self
     {
         $this->presentation = $presentation;
+
+        return $this;
+    }
+
+    public function getMusicTrend(): ?MusicTrend
+    {
+        return $this->musicTrend;
+    }
+
+    public function setMusicTrend(?MusicTrend $musicTrend): self
+    {
+        $this->musicTrend = $musicTrend;
 
         return $this;
     }
