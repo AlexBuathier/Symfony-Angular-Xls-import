@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="WEB_MODULE" version="4">
+  <component name="NewModuleRootManager">
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/XlsBack/src" isTestSource="false" packagePrefix="App\" />
+      <sourceFolder url="file://$MODULE_DIR$/XlsBack/tests" isTestSource="true" packagePrefix="App\Tests\" />
+      <sourceFolder url="file://$MODULE_DIR$/spec" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/tests" isTestSource="true" />
+      <excludeFolder url="file://$MODULE_DIR$/XlsBack/vendor/doctrine/deprecations" />
+      <excludeFolder url="file://$MODULE_DIR$/XlsBack/vendor/doctrine/sql-formatter" />
+      <excludeFolder url="file://$MODULE_DIR$/XlsBack/vendor/doctrine/common" />
+      <excludeFolder url="file://$MODULE_DIR$/XlsBack/vendor/doctrine/inflector" />
+      <excludeFolder url="file://$MODULE_DIR$/XlsBack/vendor/doctrine/doctrine-migrations-bundle" />
+      <excludeFolder url="file://$MODULE_DIR$/XlsBack/vendor/doctrine/lexer" />
+      <excludeFolder url="file://$MODULE_DIR$/XlsBack/vendor/doctrine/persistence" />
+      <excludeFolder url="file://$MODULE_DIR$/XlsBack/vendor/doctrine/annotations" />
+      <excludeFolder url="file://$MODULE_DIR$/XlsBack/vendor/symfony/doctrine-bridge" />
+      <excludeFolder url="file://$MODULE_DIR$/XlsBack/vendor/symfony/stopwatch" />
+      <excludeFolder url="file://$MODULE_DIR$/XlsBack/vendor/composer" />
+      <excludeFolder url="file://$MODULE_DIR$/XlsBack/vendor/symfony/proxy-manager-bridge" />
+      <excludeFolder url="file://$MODULE_DIR$/XlsBack/vendor/symfony/maker-bundle" />
+      <excludeFolder url="file://$MODULE_DIR$/XlsBack/vendor/willdurand/negotiation" />
+      <excludeFolder url="file://$MODULE_DIR$/XlsBack/vendor/fig/link-util" />
+      <excludeFolder url="file://$MODULE_DIR$/XlsBack/vendor/symfony/var-exporter" />
+      <excludeFolder url="file://$MODULE_DIR$/XlsBack/vendor/symfony/filesystem" />
+      <excludeFolder url="file://$MODULE_DIR$/XlsBack/vendor/symfony/finder" />
+      <excludeFolder url="file://$MODULE_DIR$/XlsBack/vendor/symfony/polyfill-intl-normalizer" />
+      <excludeFolder url="file://$MODULE_DIR$/XlsBack/vendor/symfony/http-kernel" />
+      <excludeFolder url="file://$MODULE_DIR$/XlsBack/vendor/symfony/config" />
+      <excludeFolder url="file://$MODULE_DIR$/XlsBack/vendor/symfony/property-info" />
+      <excludeFolder url="file://$MODULE_DIR$/XlsBack/vendor/symfony/web-link" />
+      <excludeFolder url="file://$MODULE_DIR$/XlsBack/vendor/symfony/http-foundation" />
+      <excludeFolder url="file://$MODULE_DIR$/XlsBack/vendor/friendsofphp/proxy-manager-lts" />
+      <excludeFolder url="file://$MODULE_DIR$/XlsBack/vendor/symfony/dotenv" />
+      <excludeFolder url="file://$MODULE_DIR$/XlsBack/vendor/symfony/serializer" />
+      <excludeFolder url="file://$MODULE_DIR$/XlsBack/vendor/api-platform/core" />
+      <excludeFolder url="file://$MODULE_DIR$/XlsBack/vendor/symfony/property-access" />
+      <excludeFolder url="file://$MODULE_DIR$/XlsBack/vendor/symfony/polyfill-mbstring" />
+      <excludeFolder url="file://$MODULE_DIR$/XlsBack/vendor/symfony/cache-contracts" />
+      <excludeFolder url="file://$MODULE_DIR$/XlsBack/vendor/symfony/event-dispatcher-contracts" />
+      <excludeFolder url="file://$MODULE_DIR$/XlsBack/vendor/symfony/flex" />
+      <excludeFolder url="file://$MODULE_DIR$/XlsBack/vendor/psr/link" />
+      <excludeFolder url="file://$MODULE_DIR$/XlsBack/vendor/symfony/polyfill-intl-grapheme" />
+      <excludeFolder url="file://$MODULE_DIR$/XlsBack/vendor/symfony/framework-bundle" />
+      <excludeFolder url="file://$MODULE_DIR$/XlsBack/vendor/symfony/runtime" />
+      <excludeFolder url="file://$MODULE_DIR$/XlsBack/vendor/nikic/php-parser" />
+      <excludeFolder url="file://$MODULE_DIR$/XlsBack/vendor/symfony/console" />
+      <excludeFolder url="file://$MODULE_DIR$/XlsBack/vendor/symfony/cache" />
+      <excludeFolder url="file://$MODULE_DIR$/XlsBack/vendor/symfony/dependency-injection" />
+      <excludeFolder url="file://$MODULE_DIR$/XlsBack/vendor/symfony/string" />
+      <excludeFolder url="file://$MODULE_DIR$/XlsBack/vendor/symfony/deprecation-contracts" />
+      <excludeFolder url="file://$MODULE_DIR$/XlsBack/vendor/symfony/routing" />
+      <excludeFolder url="file://$MODULE_DIR$/XlsBack/vendor/symfony/event-dispatcher" />
+      <excludeFolder url="file://$MODULE_DIR$/XlsBack/vendor/symfony/service-contracts" />
+      <excludeFolder url="file://$MODULE_DIR$/XlsBack/vendor/symfony/polyfill-php81" />
+      <excludeFolder url="file://$MODULE_DIR$/XlsBack/vendor/twig/twig" />
+      <excludeFolder url="file://$MODULE_DIR$/XlsBack/vendor/symfony/asset" />
+      <excludeFolder url="file://$MODULE_DIR$/XlsBack/vendor/psr/log" />
+      <excludeFolder url="file://$MODULE_DIR$/XlsBack/vendor/doctrine/data-fixtures" />
+      <excludeFolder url="file://$MODULE_DIR$/XlsBack/vendor/doctrine/doctrine-fixtures-bundle" />
+      <excludeFolder url="file://$MODULE_DIR$/XlsBack/vendor/psr/cache" />
+      <excludeFolder url="file://$MODULE_DIR$/XlsBack/vendor/psr/event-dispatcher" />
+      <excludeFolder url="file://$MODULE_DIR$/XlsBack/vendor/symfony/error-handler" />
+      <excludeFolder url="file://$MODULE_DIR$/XlsBack/vendor/psr/container" />
+      <excludeFolder url="file://$MODULE_DIR$/XlsBack/vendor/laminas/laminas-code" />
+      <excludeFolder url="file://$MODULE_DIR$/XlsBack/vendor/symfony/yaml" />
+      <excludeFolder url="file://$MODULE_DIR$/XlsBack/vendor/symfony/twig-bridge" />
+      <excludeFolder url="file://$MODULE_DIR$/XlsBack/vendor/symfony/translation-contracts" />
+      <excludeFolder url="file://$MODULE_DIR$/XlsBack/vendor/symfony/var-dumper" />
+      <excludeFolder url="file://$MODULE_DIR$/XlsBack/vendor/doctrine/migrations" />
+      <excludeFolder url="file://$MODULE_DIR$/XlsBack/vendor/doctrine/collections" />
+      <excludeFolder url="file://$MODULE_DIR$/XlsBack/vendor/doctrine/cache" />
+      <excludeFolder url="file://$MODULE_DIR$/XlsBack/vendor/doctrine/doctrine-bundle" />
+      <excludeFolder url="file://$MODULE_DIR$/XlsBack/vendor/doctrine/dbal" />
+      <excludeFolder url="file://$MODULE_DIR$/XlsBack/vendor/symfony/twig-bundle" />
+      <excludeFolder url="file://$MODULE_DIR$/XlsBack/vendor/doctrine/event-manager" />
+      <excludeFolder url="file://$MODULE_DIR$/XlsBack/vendor/doctrine/orm" />
+      <excludeFolder url="file://$MODULE_DIR$/XlsBack/vendor/doctrine/instantiator" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>
