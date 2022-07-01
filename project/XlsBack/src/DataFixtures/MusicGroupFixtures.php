@@ -21,6 +21,7 @@ class MusicGroupFixtures extends Fixture implements DependentFixtureInterface
         $date = new \DateTimeImmutable('1980-01-01');
         for ($i = 1; $i < 6; $i++) {
             $mg = new MusicGroup();
+            $mg->setName($i . ' groupe name');
             $mg->setStartDate($date->modify('- ' . $i . ' years'));
             $mg->setSeparationDate($date->modify($i * 2 . ' years'));
             $mg->setFounder($i . 'John Doe');

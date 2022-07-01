@@ -7,6 +7,7 @@ use App\Repository\MusicTrendRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: MusicTrendRepository::class)]
 #[ApiResource(collectionOperations: ["GET"], itemOperations: ["GET"])]
@@ -15,9 +16,11 @@ class MusicTrend
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
+    #[Groups('music_groups_read')]
     private $id;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    #[Groups('music_groups_read')]
     private $name;
 
     #[ORM\OneToMany(mappedBy: 'musicTrend', targetEntity: MusicGroup::class)]

@@ -5,33 +5,45 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\MusicGroupRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: MusicGroupRepository::class)]
-#[ApiResource]
+#[ApiResource(normalizationContext: ['groups' => ['music_groups_read']],)]
 class MusicGroup
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
+    #[Groups('music_groups_read')]
     private $id;
 
     #[ORM\Column(type: 'date')]
+     #[Groups('music_groups_read')]
     private $startDate;
 
     #[ORM\Column(type: 'date', nullable: true)]
+     #[Groups('music_groups_read')]
     private $separationDate;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
+     #[Groups('music_groups_read')]
     private $founder;
 
     #[ORM\Column(type: 'integer', nullable: true)]
+     #[Groups('music_groups_read')]
     private $members;
 
     #[ORM\Column(type: 'text')]
+     #[Groups('music_groups_read')]
     private $presentation;
 
     #[ORM\ManyToOne(targetEntity: MusicTrend::class, inversedBy: 'musicGroups')]
+     #[Groups('music_groups_read')]
     private $musicTrend;
+
+    #[ORM\Column(type: 'string', length: 255)]
+    #[Groups('music_groups_read')]
+    private $name;
 
     public function getId(): ?int
     {
@@ -106,6 +118,18 @@ class MusicGroup
     public function setMusicTrend(?MusicTrend $musicTrend): self
     {
         $this->musicTrend = $musicTrend;
+
+        return $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): self
+    {
+        $this->name = $name;
 
         return $this;
     }
