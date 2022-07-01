@@ -9,7 +9,9 @@ import { MusicGroupComponent } from './components/music-group/music-group.compon
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { HomePageComponent } from './components/home-page/home-page.component';
 import { FileImportComponent } from './components/file-import/file-import.component';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import {ErrorInterceptor} from './interceptors/error.interceptor';
+
 
 @NgModule({
   declarations: [
@@ -26,7 +28,13 @@ import {HttpClientModule} from '@angular/common/http';
     BrowserAnimationsModule,
       HttpClientModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
