@@ -17,6 +17,10 @@ class MusicGroup
     #[Groups('music_groups_read')]
     private $id;
 
+    #[ORM\Column(type: 'string', length: 255)]
+    #[Groups('music_groups_read')]
+    private $name;
+
     #[ORM\Column(type: 'date')]
      #[Groups('music_groups_read')]
     private $startDate;
@@ -41,11 +45,9 @@ class MusicGroup
      #[Groups('music_groups_read')]
     private $musicTrend;
 
-    #[ORM\Column(type: 'string', length: 255)]
-    #[Groups('music_groups_read')]
-    private $name;
 
     #[ORM\ManyToOne(targetEntity: City::class, inversedBy: 'musicGroups')]
+    #[Groups('music_groups_read')]
     private $city;
 
     public function getId(): ?int

@@ -7,17 +7,21 @@ use App\Repository\CountryRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: CountryRepository::class)]
-#[ApiResource]
+#[ApiResource(collectionOperations: ["GET"], itemOperations: ["GET"],
+normalizationContext: ["groups" => "country_read"])]
 class Country
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
+    #[Groups('music_groups_read')]
     private $id;
 
     #[ORM\Column(type: 'string', length: 255)]
+    #[Groups(['music_groups_read','country_read'])]
     private $name;
 
     #[ORM\OneToMany(mappedBy: 'country', targetEntity: City::class)]
