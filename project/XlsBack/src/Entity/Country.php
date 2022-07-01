@@ -23,9 +23,11 @@ class Country
     #[ORM\OneToMany(mappedBy: 'country', targetEntity: City::class)]
     private $city;
 
+
     public function __construct()
     {
         $this->city = new ArrayCollection();
+
     }
 
     public function getId(): ?int

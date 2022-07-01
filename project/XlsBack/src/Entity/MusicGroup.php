@@ -45,6 +45,9 @@ class MusicGroup
     #[Groups('music_groups_read')]
     private $name;
 
+    #[ORM\ManyToOne(targetEntity: City::class, inversedBy: 'musicGroups')]
+    private $city;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -130,6 +133,18 @@ class MusicGroup
     public function setName(string $name): self
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function getCity(): ?City
+    {
+        return $this->city;
+    }
+
+    public function setCity(?City $city): self
+    {
+        $this->city = $city;
 
         return $this;
     }
