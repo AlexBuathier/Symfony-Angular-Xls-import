@@ -15,10 +15,23 @@ export class MusicGroupComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.musicGroupService.getMusicGroupCollection().subscribe((musicGroups: MusicGroup[]) => {
-            this.musicGroups = musicGroups;
-            console.log(this.musicGroups);
-        });
+        this.getMusicGroups()
     }
 
+    deleteItem(id: any) {
+        if (confirm(`Are you sure you want to delete item n° ${id}`)) {
+            this.musicGroupService.deleteMusicGroupItem(id).subscribe(() => {
+                this.getMusicGroups()
+            });
+        }
+    }
+
+    //this.musicGroupService.deleteMusicGroupItem(mg).subscribe()
+
+
+    getMusicGroups() {
+        this.musicGroupService.getMusicGroupCollection().subscribe((musicGroups: MusicGroup[]) => {
+            this.musicGroups = musicGroups;
+        });
+    }
 }

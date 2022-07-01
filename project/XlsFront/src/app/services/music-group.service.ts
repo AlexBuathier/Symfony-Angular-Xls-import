@@ -20,9 +20,11 @@ export class MusicGroupService {
     }
 
 
-    getMusicGroupCollection()
-        :
-        Observable<MusicGroup[]> {
+    getMusicGroupCollection(): Observable<MusicGroup[]> {
         return this.http.get<MusicGroup[]>(`${env.domain}/api/music_groups.json`, this.httpOptions);
+    }
+
+    deleteMusicGroupItem(id: any): Observable<MusicGroup> {
+        return this.http.delete<MusicGroup>(`${env.domain}/api/music_groups/${id}`);
     }
 }
