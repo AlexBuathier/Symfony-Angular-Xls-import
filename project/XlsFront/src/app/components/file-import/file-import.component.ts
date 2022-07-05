@@ -1,11 +1,10 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import * as XLSX from 'xlsx';
 import {MusicGroup} from '../../models/music-group';
-import {Validators} from '@angular/forms';
 import {MusicGroupService} from '../../services/music-group.service';
 import {Country} from '../../models/country';
 import {City} from '../../models/city';
-import {forkJoin, map, Subscription} from 'rxjs';
+import {forkJoin} from 'rxjs';
 import {MusicTrend} from '../../models/music-trend';
 
 @Component({
@@ -17,7 +16,7 @@ export class FileImportComponent implements OnInit {
 
     file: any
     arrayBuffer: any
-    filelist: any
+    fileList: any
 
     countries: Country[] = [];
     cities: City[] = [];
@@ -28,17 +27,39 @@ export class FileImportComponent implements OnInit {
 
     @ViewChild('inputFile') inputFile: ElementRef | undefined;
 
-
     ngOnInit(): void {
-        this.getCountriesAndCity()
+        this.getEntityDependencies()
     }
 
-    import() {
+    postMusicGroup() {
+        if (this.fileList) {
+            for (let i = 0; i < this.fileList.length; i++) {
+                this.musicGroupService.postMusicGroupItem(this.fileList[i]).subscribe((musicGroup: MusicGroup) => {
+                    this.musicGroupService.musicGroups.value.push(musicGroup)
+                });
+            }
+            this.fileList = [];
+            this.resetInputFile();
+        }
+    }
 
+    getEntityDependencies(): any {
+        forkJoin({
+            musicTrends: this.musicGroupService.getMusicTrendCollection(),
+            countries: this.musicGroupService.getCountryCollection(),
+            cities: this.musicGroupService.getCityCollection(),
+        }).subscribe((data) => {
+            this.countries = data.countries;
+            this.cities = data.cities;
+            this.musicTrends = data.musicTrends;
+        });
+    }
+
+    resetInputFile() {
+        this.inputFile ? this.inputFile.nativeElement.value = '' : null;
     }
 
     addFileInField(event: any) {
-        //this.getCountriesAndCity()
         this.file = event.target.files[0];
         let fileReader = new FileReader();
         fileReader.readAsArrayBuffer(this.file);
@@ -52,11 +73,9 @@ export class FileImportComponent implements OnInit {
             const workbook = XLSX.read(bstr, {type: "binary"});
             const first_sheet_name = workbook.SheetNames[0];
             const worksheet = workbook.Sheets[first_sheet_name];
-            /*console.log(worksheet)
-            console.log(XLSX.utils.sheet_to_json(worksheet,{raw:true})[0]);*/
-            var arraylist: any = XLSX.utils.sheet_to_json(worksheet, {raw: true});
+            const arraylist: any = XLSX.utils.sheet_to_json(worksheet, {raw: true});
+            this.fileList = [];
 
-            this.filelist = [];
             for (let i = 0; i < Object.keys(arraylist[0]).length; i++) {
                 let obj = {
                     name: arraylist[i]["Nom du groupe"],
@@ -76,65 +95,9 @@ export class FileImportComponent implements OnInit {
                 obj.city = 'api/cities/' + city?.id
                 obj.musicTrend = musicTrend?.id ? 'api/music_trends/' + musicTrend?.id : null
 
-                console.log(obj.country, obj.city, 'FIND');
-                this.filelist.push(obj);
+                this.fileList.push(obj);
             }
-            console.log(this.filelist)
         }
-    }
-
-    postMusicGroup() {
-        if (this.filelist) {
-            for (let i = 0; i < this.filelist.length; i++) {
-                console.log(this.filelist[i].name);
-                this.musicGroupService.postMusicGroupItem(this.filelist[i]).subscribe((musicGroup: MusicGroup) => {
-                        console.log(musicGroup, 'musicGroup');
-                        this.musicGroupService.musicGroups.value.push(musicGroup)
-                    }
-                );
-            }
-            this.filelist = [];
-            this.resetInputFile();
-        } else {
-            console.log('no file')
-        }
-    }
-
-    async getCountriesAndCity(): Promise<any> {
-        forkJoin([
-            this.getCountries(),
-            this.getCities(),
-            this.getMusicTrend()
-        ]).pipe(
-            map(() => {
-                console.log('done');
-            }
-            ));
-    }
-
-    resetInputFile() {
-        this.inputFile ? this.inputFile.nativeElement.value = '' : null;
-    }
-
-    getMusicTrend(): Subscription {
-        return this.musicGroupService.getMusicTrendCollection().subscribe((musicTrend: MusicTrend[]) => {
-            this.musicTrends = musicTrend;
-            console.log(this.musicTrends, 'musicTrend');
-        });
-    }
-
-    getCountries(): Subscription {
-        return this.musicGroupService.getCountryCollection().subscribe((countries: Country[]) => {
-            this.countries = countries;
-            console.log(this.countries, 'countries');
-        });
-    }
-
-    getCities(): Subscription {
-        return this.musicGroupService.getCityCollection().subscribe((cities: City[]) => {
-            this.cities = cities;
-            console.log(this.cities, 'cities');
-        });
     }
 
 }
