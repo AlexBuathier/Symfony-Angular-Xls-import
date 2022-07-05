@@ -6,6 +6,9 @@ import {Country} from '../../models/country';
 import {City} from '../../models/city';
 import {forkJoin} from 'rxjs';
 import {MusicTrend} from '../../models/music-trend';
+import {CityService} from '../../services/city.service';
+import {CountryService} from '../../services/country.service';
+import {MusicTrendService} from '../../services/music-trend.service';
 
 @Component({
     selector: 'app-file-import',
@@ -22,7 +25,10 @@ export class FileImportComponent implements OnInit {
     cities: City[] = [];
     musicTrends: MusicTrend[] = [];
 
-    constructor(private musicGroupService: MusicGroupService) {
+    constructor(private musicGroupService: MusicGroupService,
+                private cityService: CityService,
+                private countryService: CountryService,
+                private musicTrendService: MusicTrendService) {
     }
 
     @ViewChild('inputFile') inputFile: ElementRef | undefined;
@@ -45,9 +51,9 @@ export class FileImportComponent implements OnInit {
 
     getEntityDependencies(): any {
         forkJoin({
-            musicTrends: this.musicGroupService.getMusicTrendCollection(),
-            countries: this.musicGroupService.getCountryCollection(),
-            cities: this.musicGroupService.getCityCollection(),
+            musicTrends: this.musicTrendService.getMusicTrendCollection(),
+            countries: this.countryService.getCountryCollection(),
+            cities: this.cityService.getCityCollection(),
         }).subscribe((data) => {
             this.countries = data.countries;
             this.cities = data.cities;
@@ -68,7 +74,7 @@ export class FileImportComponent implements OnInit {
             this.arrayBuffer = fileReader.result;
             const data = new Uint8Array(this.arrayBuffer);
             const arr = [];
-            for (var i = 0; i != data.length; ++i) arr[i] = String.fromCharCode(data[i]);
+            for (let i = 0; i != data.length; ++i) arr[i] = String.fromCharCode(data[i]);
             const bstr = arr.join("");
             const workbook = XLSX.read(bstr, {type: "binary"});
             const first_sheet_name = workbook.SheetNames[0];

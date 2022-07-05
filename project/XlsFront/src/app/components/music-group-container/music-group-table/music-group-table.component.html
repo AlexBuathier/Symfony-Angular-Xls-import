@@ -1,0 +1,119 @@
+<div class="text-center">
+
+    <button type="button" class="btn btn-primary" (click)="openModal(template,0)">Add group manually</button>
+</div>
+
+<div *ngIf="!(musicGroups$ | async)?.length" class="text-muted text-center mt-4">
+    No data here
+</div>
+
+<table *ngIf="(musicGroups$ | async)?.length" class="table table-sm mx-auto mt-4">
+    <thead>
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col">Country</th>
+        <th scope="col">City</th>
+        <th scope="col">Start</th>
+        <th scope="col">Separation</th>
+        <th scope="col">Founder</th>
+        <th scope="col">Members</th>
+        <th scope="col">Trend</th>
+        <th scope="col">Presentation</th>
+        <th scope="col">Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    <tr *ngFor="let mg of musicGroups$ | async">
+        <th scope="row">{{mg.id}}</th>
+        <td>{{mg.name}}</td>
+        <td>{{mg.city.country?.name}}</td>
+        <td>{{mg.city.name}}</td>
+        <td>{{mg.startDate | date:'YYYY'}}</td>
+        <td>{{mg.separationDate | date: 'YYYY'}}</td>
+        <td>{{mg.founder}}</td>
+        <td>{{mg.members}}</td>
+        <td>{{mg.musicTrend?.name }}</td>
+        <td>{{mg.presentation}}</td>
+        <td>
+            <button class="btn btn-sm btn-outline-primary mx-2 mb-2" (click)="openModal(template,mg.id)">Edit</button>
+            <button class="btn btn-sm btn-outline-danger  mb-2" (click)="openModal(template,mg.id, true)">Delete</button>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<ng-template #template>
+    <app-crud-music-group-modal [musicGroupId]="currentMusicGroup"
+                                [isDeleteItem]="currentIsDeleteItem"></app-crud-music-group-modal>
+</ng-template>
+<!--<ng-template #template>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Music Group</h4>
+        <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="closeModal()">
+            <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="musicGroupForm" (ngSubmit)="sendForm()">
+            <div class="form-group mt-3">
+                <label for="name">Name of the music group</label>
+                <input id="name" type="text" formControlName="name" class="form-control">
+            </div>
+            <div class="mt-3">
+                <label for="startDate">Origine</label>
+                <select class="form-select" (ngModelChange)="countryOnChange($event)" formControlName="country">
+                    <option [ngValue]="null" disabled>Select Country</option>
+                    <option *ngFor="let country of countries" [ngValue]="country.id">{{country.name}}</option>
+                </select>
+            </div>
+            <div class=" mt-3">
+                <label for="startDate">City</label>
+                <select  class="form-select"  formControlName="city" [attr.disabled]="cities.length ? null:''">
+                    <option [ngValue]="null">Select City</option>
+                    <option  *ngFor="let city of cities" [ngValue]="city.id">{{city.name}}</option>
+                </select>
+            </div>
+            <div class="form-group mt-3">
+                <label for="startDate">Started year</label>
+                <input id="startDate" type="number" min="1900" [max]="getYear" formControlName="startDate"
+                       class="form-control">
+            </div>
+            <div class="form-group mt-3">
+                <label for="separationDate">Separation year</label>
+                <input id="separationDate" type="number" min="1900" [max]="getYear" formControlName="separationDate"
+                       class="form-control">
+            </div>
+            <div class="form-group mt-3">
+                <label for="founder">Founder name</label>
+                <input id="founder" type="text" formControlName="founder" class="form-control">
+            </div>
+            <div class="form-group mt-3">
+                <label for="members">Number of members</label>
+                <input id="members" type="number" formControlName="members" class="form-control">
+            </div>
+            <div class=" mt-3">
+                <label for="startDate">Music Trend</label>
+                <select  class="form-select"  formControlName="musicTrend">
+                    <option [ngValue]="null">Select Trend</option>
+                    <option  *ngFor="let trend of musicTrends" [ngValue]="trend.id">{{trend.name}}</option>
+                </select>
+            </div>
+            <div class="form-group mt-3">
+                <label for="presentation">Presentation</label>
+                <textarea id="presentation" formControlName="presentation" class="form-control"></textarea>
+            </div>
+
+            <div class="text-center">
+                <button class="btn btn-primary my-3">Create</button>
+            </div>
+        </form>
+    </div>
+</ng-template>-->
+
+
+
+
+
+

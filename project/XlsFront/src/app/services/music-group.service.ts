@@ -18,17 +18,11 @@ export class MusicGroupService {
     constructor(private http: HttpClient) {
     }
 
-    httpOptions = {
-        headers: new HttpHeaders({
-            'Content-Type': 'application/json',
-        })
-    }
-
     getMusicGroupCollection(): Observable<MusicGroup[] | null> {
         if (this.musicGroups.value) {
             return this.musicGroups;
         } else {
-            return this.http.get<MusicGroup[]>(`${env.domain}/api/music_groups.json`, this.httpOptions).pipe(
+            return this.http.get<MusicGroup[]>(`${env.domain}/api/music_groups.json`).pipe(
                 tap((musicGroup: MusicGroup[]) => {
                     this.musicGroups.next(musicGroup);
                 }), switchMap(() => {
@@ -51,22 +45,12 @@ export class MusicGroupService {
     }
 
     getMusicGroupItem(id: number): Observable<MusicGroup> {
-        return this.http.get<MusicGroup>(`${env.domain}/api/music_groups/${id}.json`, this.httpOptions);
+        return this.http.get<MusicGroup>(`${env.domain}/api/music_groups/${id}.json`);
     }
 
-    getMusicTrendCollection(): Observable<any> {
-        return this.http.get<any>(`${env.domain}/api/music_trends.json`, this.httpOptions);
-    }
 
-    getCountryCollection(): Observable<Country[]> {
-        return this.http.get<Country[]>(`${env.domain}/api/countries.json`, this.httpOptions);
-    }
 
-    getCityCollection(): Observable<MusicGroup[]> {
-        return this.http.get<MusicGroup[]>(`${env.domain}/api/cities.json`, this.httpOptions);
-    }
 
-    getCityByCountry(id: number): Observable<City[]> {
-        return this.http.get<City[]>(`${env.domain}/api/countries/${id}.json`, this.httpOptions);
-    }
+
+
 }

@@ -1,18 +1,5 @@
 SHELL := /bin/bash
 
-fixtures:
-	php bin/console doctrine:fixtures:load --no-interaction
-
-ubdd:
-	php bin/console make:migration
-	php bin/console doctrine:migrations:migrate
-
-reset-bdd:
-	php bin/console doctrine:database:drop --force
-	php bin/console doctrine:database:create
-	php bin/console doctrine:migrations:migrate -n
-	php bin/console doctrine:fixtures:load -n
-
 tests:
 	symfony console doctrine:database:drop --force --env=test || true
 	symfony console doctrine:database:create --env=test
@@ -26,7 +13,8 @@ first-install:
 	symfony console doctrine:database:create --env=test
 	symfony console doctrine:migrations:migrate -n --env=test
 	symfony console doctrine:fixtures:load -n --env=test
-	symfony console doctrine:database:create
-	symfony console doctrine:migrations:migrate
-	symfony console doctrine:fixtures:load --no-interaction
+
+	symfony console doctrine:database:create -n
+	symfony console doctrine:migrations:migrate -n
+	symfony console doctrine:fixtures:load -n
 	symfony serve
