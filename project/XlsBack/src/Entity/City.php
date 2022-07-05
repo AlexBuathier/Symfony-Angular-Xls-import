@@ -9,18 +9,20 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
-#[ORM\Entity(repositoryClass: CityRepository::class)]
-#[ApiResource(collectionOperations: ["GET"], itemOperations: ["GET"])]
+#[
+ORM\Entity(repositoryClass: CityRepository::class)]
+#[ApiResource(collectionOperations: ["GET"], itemOperations: ["GET"],
+    normalizationContext: ["groups" => "city_read"])]
 class City
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
-    #[Groups('music_groups_read')]
+    #[Groups(['music_groups_read', 'country_read','city_read'])]
     private $id;
 
     #[ORM\Column(type: 'string', length: 255)]
-    #[Groups('music_groups_read')]
+    #[Groups(['music_groups_read', 'country_read','city_read'])]
     private $name;
 
     #[ORM\ManyToOne(targetEntity: Country::class, inversedBy: 'city')]
@@ -68,10 +70,10 @@ class City
     /**
      * @return Collection<int, MusicGroup>
      */
-    public function getMusicGroups(): Collection
-    {
-        return $this->musicGroups;
-    }
+    /*   public function getMusicGroups(): Collection
+       {
+           return $this->musicGroups;
+       }*/
 
     public function addMusicGroup(MusicGroup $musicGroup): self
     {

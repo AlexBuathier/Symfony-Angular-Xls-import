@@ -17,7 +17,7 @@ class Country
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
-    #[Groups('music_groups_read')]
+    #[Groups(['music_groups_read','country_read'])]
     private $id;
 
     #[ORM\Column(type: 'string', length: 255)]
@@ -25,6 +25,7 @@ class Country
     private $name;
 
     #[ORM\OneToMany(mappedBy: 'country', targetEntity: City::class)]
+    #[Groups('country_read')]
     private $city;
 
 

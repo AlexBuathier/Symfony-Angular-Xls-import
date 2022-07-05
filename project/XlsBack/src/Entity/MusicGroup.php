@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: MusicGroupRepository::class)]
-#[ApiResource(normalizationContext: ['groups' => ['music_groups_read']],)]
+#[ApiResource(normalizationContext: ['groups' => ['music_groups_read'], "datetime_format" => "Y-m-d"],)]
 class MusicGroup
 {
     #[ORM\Id]

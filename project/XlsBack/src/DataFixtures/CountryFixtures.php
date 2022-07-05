@@ -10,7 +10,7 @@ class CountryFixtures extends Fixture
 {
     public function load(ObjectManager $manager): void
     {
-        $names = ["France", "Germany", "Spain", "Italy", "United Kingdom", "United States"];
+        $names = ["France", "Germany", "Spain", "Italy", "Royaume-Uni", "Etats-unis"];
         for ($i = 0; $i < count($names); $i++) {
             $country = new Country();
             $country->setName($names[$i]);
