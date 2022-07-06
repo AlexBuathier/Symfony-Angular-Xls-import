@@ -17,13 +17,13 @@ import {MusicTrendService} from '../../services/music-trend.service';
 })
 export class FileImportComponent implements OnInit {
 
-    file: any
-    arrayBuffer: any
-    fileList: any
-
     countries: Country[] = [];
     cities: City[] = [];
     musicTrends: MusicTrend[] = [];
+
+    file?: Blob
+    arrayBuffer?:  ArrayBuffer | ArrayBufferLike | string |  null;
+    fileMusicGroups?: MusicGroup[] | any = [];
 
     constructor(private musicGroupService: MusicGroupService,
                 private cityService: CityService,
@@ -37,19 +37,19 @@ export class FileImportComponent implements OnInit {
         this.getEntityDependencies()
     }
 
-    postMusicGroup() {
-        if (this.fileList) {
-            for (let i = 0; i < this.fileList.length; i++) {
-                this.musicGroupService.postMusicGroupItem(this.fileList[i]).subscribe((musicGroup: MusicGroup) => {
+    postMusicGroup(): void {
+        if (this.fileMusicGroups) {
+            for (let i = 0; i < this.fileMusicGroups.length; i++) {
+                this.musicGroupService.postMusicGroupItem(this.fileMusicGroups[i]).subscribe((musicGroup: MusicGroup) => {
                     this.musicGroupService.musicGroups.value.push(musicGroup)
                 });
             }
-            this.fileList = [];
+            this.fileMusicGroups = [];
             this.resetInputFile();
         }
     }
 
-    getEntityDependencies(): any {
+    getEntityDependencies(): void {
         forkJoin({
             musicTrends: this.musicTrendService.getMusicTrendCollection(),
             countries: this.countryService.getCountryCollection(),
@@ -61,18 +61,19 @@ export class FileImportComponent implements OnInit {
         });
     }
 
-    resetInputFile() {
+    resetInputFile() : void {
         this.inputFile ? this.inputFile.nativeElement.value = '' : null;
     }
 
-    addFileInField(event: any) {
+    addFileInField(event: any) : void{
         this.file = event.target.files[0];
         let fileReader = new FileReader();
-        fileReader.readAsArrayBuffer(this.file);
+        if (this.file) {
+            fileReader.readAsArrayBuffer(this.file);
+        }
         fileReader.onload = (e: ProgressEvent<FileReader>) => {
-
             this.arrayBuffer = fileReader.result;
-            const data = new Uint8Array(this.arrayBuffer);
+            const data = new Uint8Array(this.arrayBuffer as ArrayBuffer);
             const arr = [];
             for (let i = 0; i != data.length; ++i) arr[i] = String.fromCharCode(data[i]);
             const bstr = arr.join("");
@@ -80,7 +81,7 @@ export class FileImportComponent implements OnInit {
             const first_sheet_name = workbook.SheetNames[0];
             const worksheet = workbook.Sheets[first_sheet_name];
             const arraylist: any = XLSX.utils.sheet_to_json(worksheet, {raw: true});
-            this.fileList = [];
+            this.fileMusicGroups = [];
 
             for (let i = 0; i < Object.keys(arraylist[0]).length; i++) {
                 let obj = {
@@ -101,7 +102,7 @@ export class FileImportComponent implements OnInit {
                 obj.city = 'api/cities/' + city?.id
                 obj.musicTrend = musicTrend?.id ? 'api/music_trends/' + musicTrend?.id : null
 
-                this.fileList.push(obj);
+                this.fileMusicGroups.push(obj);
             }
         }
     }
