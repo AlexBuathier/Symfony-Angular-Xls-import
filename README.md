@@ -41,7 +41,6 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 Réalisation d’un système d’import du fichier Excel en pièce jointe, avec une interface de gestion des données.
 
 
-
 ### Contexte
 
 En tant qu’utilisateur
@@ -49,7 +48,6 @@ En tant qu’utilisateur
 Je souhaite pouvoir importer le fichier Excel dans une base de données
 
 Afin de pouvoir consulter, modifier ou supprimer les informations depuis une interface graphique
-
 
 
 ### Stack technique

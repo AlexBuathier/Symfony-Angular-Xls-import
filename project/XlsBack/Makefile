@@ -1,5 +1,9 @@
 SHELL := /bin/bash
 
+del-bdd:
+	php bin/console doctrine:database:drop --force
+	php bin/console doctrine:database:drop --force --env=test
+
 tests:
 	symfony console doctrine:database:drop --force --env=test || true
 	symfony console doctrine:database:create --env=test
@@ -13,7 +17,6 @@ first-install:
 	symfony console doctrine:database:create --env=test
 	symfony console doctrine:migrations:migrate -n --env=test
 	symfony console doctrine:fixtures:load -n --env=test
-
 	symfony console doctrine:database:create -n
 	symfony console doctrine:migrations:migrate -n
 	symfony console doctrine:fixtures:load -n
