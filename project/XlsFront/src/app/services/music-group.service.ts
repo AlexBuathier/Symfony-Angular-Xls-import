@@ -19,9 +19,6 @@ export class MusicGroupService {
     }
 
     getMusicGroupCollection(): Observable<MusicGroup[] | null> {
-        if (this.musicGroups.value) {
-            return this.musicGroups;
-        } else {
             return this.http.get<MusicGroup[]>(`${env.domain}/api/music_groups.json`).pipe(
                 tap((musicGroup: MusicGroup[]) => {
                     this.musicGroups.next(musicGroup);
@@ -29,7 +26,17 @@ export class MusicGroupService {
                     return this.musicGroups;
                 })
             );
-        }
+    }
+
+    postImportMusicGroup(file: any): Observable<MusicGroup> {
+        const formData = new FormData();
+
+        // Store form name as "file" with file data
+        formData.append("file", file, file.name);
+
+        // Make http post request over api
+        // with formData as req
+        return this.http.post<MusicGroup>(`${env.domain}/api/file-import`, formData);
     }
 
     putMusicGroupItem(id: number, item: MusicGroup): Observable<MusicGroup> {

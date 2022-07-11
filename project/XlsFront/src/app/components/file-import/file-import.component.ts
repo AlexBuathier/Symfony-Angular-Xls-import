@@ -20,10 +20,9 @@ export class FileImportComponent implements OnInit {
     countries: Country[] = [];
     cities: City[] = [];
     musicTrends: MusicTrend[] = [];
-
+    importFileMessage = '';
+    className: string = 'text-muted';
     file?: Blob
-    arrayBuffer?:  ArrayBuffer | ArrayBufferLike | string |  null;
-    fileMusicGroups?: MusicGroup[] | any = [];
 
     constructor(private musicGroupService: MusicGroupService,
                 private cityService: CityService,
@@ -37,15 +36,24 @@ export class FileImportComponent implements OnInit {
         this.getEntityDependencies()
     }
 
-    postMusicGroup(): void {
-        if (this.fileMusicGroups) {
-            for (let i = 0; i < this.fileMusicGroups.length; i++) {
-                this.musicGroupService.postMusicGroupItem(this.fileMusicGroups[i]).subscribe((musicGroup: MusicGroup) => {
-                    this.musicGroupService.musicGroups.value.push(musicGroup)
-                });
-            }
-            this.fileMusicGroups = [];
-            this.resetInputFile();
+    importFile(): void {
+        if (this.file) {
+            this.musicGroupService.postImportMusicGroup(this.file).subscribe(() => {
+                },
+                () => {
+                    this.className = 'text-danger';
+                    this.importFileMessage = 'Error while importing!';
+                }, () => {
+                    this.className = 'text-success';
+                    this.importFileMessage = 'Imported successfully!';
+                    this.resetInputFile();
+                    this.musicGroupService.getMusicGroupCollection().subscribe(musicGroups => {
+                        this.musicGroupService.musicGroups.next(musicGroups)
+                    })
+                })
+        } else {
+            this.className = 'text-danger';
+            this.importFileMessage = 'Please select a file!';
         }
     }
 
@@ -61,50 +69,15 @@ export class FileImportComponent implements OnInit {
         });
     }
 
-    resetInputFile() : void {
+    resetInputFile(): void {
         this.inputFile ? this.inputFile.nativeElement.value = '' : null;
+        setTimeout(() => {
+            this.importFileMessage = '';
+        }, 2500)
     }
 
-    addFileInField(event: any) : void{
+    addFileInField(event: any): void {
         this.file = event.target.files[0];
-        let fileReader = new FileReader();
-        if (this.file) {
-            fileReader.readAsArrayBuffer(this.file);
-        }
-        fileReader.onload = (e: ProgressEvent<FileReader>) => {
-            this.arrayBuffer = fileReader.result;
-            const data = new Uint8Array(this.arrayBuffer as ArrayBuffer);
-            const arr = [];
-            for (let i = 0; i != data.length; ++i) arr[i] = String.fromCharCode(data[i]);
-            const bstr = arr.join("");
-            const workbook = XLSX.read(bstr, {type: "binary"});
-            const first_sheet_name = workbook.SheetNames[0];
-            const worksheet = workbook.Sheets[first_sheet_name];
-            const arraylist: any = XLSX.utils.sheet_to_json(worksheet, {raw: true});
-            this.fileMusicGroups = [];
-
-            for (let i = 0; i < Object.keys(arraylist[0]).length; i++) {
-                let obj = {
-                    name: arraylist[i]["Nom du groupe"],
-                    startDate: arraylist[i]["Année début"],
-                    separationDate: arraylist[i]["Année séparation"] ? arraylist[i]["Année séparation"] : null,
-                    founder: arraylist[i]["Fondateurs"] ? arraylist[i]["Fondateurs"] : null,
-                    members: arraylist[i]["Membres"] ? arraylist[i]["Membres"] : null,
-                    presentation: arraylist[i]["Présentation"],
-                    musicTrend: arraylist[i]["Courant musical"]?.trim() ? arraylist[i]["Courant musical"]?.trim() : null,
-                    country: arraylist[i]["Origine"].trim(),
-                    city: arraylist[i]["Ville"].trim()
-                };
-                const country = this.countries.find(country => country.name.toLowerCase() === obj.country.toLowerCase());
-                const city = this.cities.find(city => city.name.toLowerCase() === obj.city.toLowerCase());
-                const musicTrend = this.musicTrends.find(musicTrend => musicTrend.name.toLowerCase() === obj.musicTrend?.toLowerCase());
-                obj.country = 'api/countries/' + country?.id
-                obj.city = 'api/cities/' + city?.id
-                obj.musicTrend = musicTrend?.id ? 'api/music_trends/' + musicTrend?.id : null
-
-                this.fileMusicGroups.push(obj);
-            }
-        }
     }
 
 }

@@ -26,7 +26,7 @@ class City
     private $name;
 
     #[ORM\ManyToOne(targetEntity: Country::class, inversedBy: 'city')]
-    #[ORM\JoinColumn(nullable: true)]
+    #[ORM\JoinColumn(nullable: false)]
     #[Groups('music_groups_read')]
     private $country;
 
